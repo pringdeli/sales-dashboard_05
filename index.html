@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 영업기획실 그룹사리스크관리 VT 5월마감</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2230;
+    --border: #2a3244; --accent: #3b82f6; --green: #10b981;
+    --amber: #f59e0b; --red: #ef4444; --text: #e6edf3;
+    --text2: #8b949e; --text3: #b1bac4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Malgun Gothic','Apple SD Gothic Neo',sans-serif; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.6; }
+
+  .header { background: linear-gradient(135deg,#0f1f3d,#0d1117); border-bottom: 2px solid var(--accent); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .header h1 { font-size: 16px; font-weight: 700; }
+  .header .sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .badge { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 4px; }
+
+  .nav { display: flex; gap: 1px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .tab { padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--text2); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab.on { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .main { padding: 22px 28px; }
+  .page { display: none; }
+  .page.on { display: block; }
+
+  .stitle { font-size: 14px; font-weight: 700; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .stitle::before { content:''; width:3px; height:15px; background:var(--accent); border-radius:2px; display:inline-block; }
+  .ssub { font-size: 12px; font-weight: 600; color: var(--text3); margin: 18px 0 8px; }
+
+  .cards { display: grid; gap: 12px; margin-bottom: 18px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .cl { font-size: 11px; color: var(--text2); font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 5px; }
+  .cv { font-size: 21px; font-weight: 700; line-height: 1.2; }
+  .cv.blue { color: var(--accent); } .cv.green { color: var(--green); } .cv.amber { color: var(--amber); } .cv.red { color: var(--red); }
+  .cs { font-size: 11px; color: var(--text2); margin-top: 4px; }
+
+  .tbox { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: auto; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; white-space: nowrap; }
+  thead th { background: var(--surface2); color: var(--text2); font-weight: 600; padding: 9px 12px; text-align: center; border-bottom: 1px solid var(--border); font-size: 11px; position: sticky; top: 0; }
+  thead th.L { text-align: left; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(59,130,246,.04); }
+  tbody td { padding: 8px 12px; color: var(--text3); text-align: right; }
+  tbody td.L { text-align: left; color: var(--text); }
+  tbody td.C { text-align: center; }
+  tbody td.B { font-weight: 700; color: var(--text); }
+  tr.total td { background: rgba(59,130,246,.06); font-weight: 700; color: var(--text); border-top: 1px solid var(--accent); }
+  tr.sub td { color: var(--text2); font-size: 11px; }
+  tr.sub td.L { padding-left: 22px; }
+
+  .pill { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .pg { background: rgba(16,185,129,.15); color: var(--green); }
+  .pr { background: rgba(239,68,68,.15); color: var(--red); }
+  .pb { background: rgba(59,130,246,.15); color: var(--accent); }
+  .pa { background: rgba(245,158,11,.15); color: var(--amber); }
+
+  .ibox { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 13px 15px; margin-bottom: 15px; font-size: 12px; color: var(--text3); line-height: 1.8; }
+  .ibox strong { color: var(--text); }
+
+  .txt { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; font-size: 12px; color: var(--text3); line-height: 1.9; white-space: pre-wrap; word-break: keep-all; margin-bottom: 15px; }
+
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  @media(max-width:800px){ .g2 { grid-template-columns: 1fr; } }
+
+  .pr-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .pr-label { width: 90px; font-size: 12px; color: var(--text3); flex-shrink: 0; }
+  .pr-wrap { flex: 1; height: 7px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .pr-fill { height: 100%; border-radius: 4px; }
+  .pr-val { width: 48px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text); }
+
+  .trend { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+  .arr { color: var(--text2); }
+
+  .fnote { font-size: 11px; color: var(--text2); margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--border); text-align: right; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>■ 영업관리 쉐어드 — Visibility &amp; Tracking</h1>
+    <div class="sub">2026년 5월 마감 | 영업관리팀 김원기 | 2026.05.29</div>
+  </div>
+  <div class="badge">26.05 마감</div>
+</div>
+
+<div class="nav">
+  <button class="tab on" onclick="go('t1',this)">그룹사 매출</button>
+  <button class="tab" onclick="go('t2',this)">직거래</button>
+  <button class="tab" onclick="go('t3',this)">직거래 세부</button>
+  <button class="tab" onclick="go('t4',this)">부실채권</button>
+  <button class="tab" onclick="go('t5',this)">채권 및 회전일</button>
+  <button class="tab" onclick="go('t6',this)">환입현황</button>
+  <button class="tab" onclick="go('t7',this)">회전관리</button>
+  <button class="tab" onclick="go('t8',this)">손익현황</button>
+  <button class="tab" onclick="go('t9',this)">교차판매</button>
+  <button class="tab" onclick="go('t10',this)">수신율현황</button>
+  <button class="tab" onclick="go('t11',this)">그룹사예산</button>
+</div>
+
+<div class="main">
+
+<!-- ===== 1. 그룹사 매출 ===== -->
+<div id="t1" class="page on">
+  <div class="stitle">대웅그룹사 매출현황 (의약품 판매 그룹) <span style="font-size:11px;color:var(--text2);font-weight:400;">(단위: 억 원)</span></div>
+
+  <div class="cards" style="grid-template-columns:repeat(5,1fr);">
+    <div class="card"><div class="cl">대웅제약 5월 실적</div><div class="cv blue">1,341.2</div><div class="cs">목표 1,454.6 · 달성률 92.2%</div></div>
+    <div class="card"><div class="cl">대웅바이오 5월 실적</div><div class="cv blue">564.7</div><div class="cs">목표 591.1 · 달성률 95.5%</div></div>
+    <div class="card"><div class="cl">한올바이오 5월 실적</div><div class="cv blue">123.1</div><div class="cs">목표 139.6 · 달성률 88.2%</div></div>
+    <div class="card"><div class="cl">디엔컴퍼니 5월 실적</div><div class="cv blue">50.4</div><div class="cs">목표 59.2 · 달성률 85.1%</div></div>
+    <div class="card"><div class="cl">디엔코스메틱스 5월 실적</div><div class="cv blue">152.7</div><div class="cs">목표 198.1 · 달성률 77.1%</div></div>
+  </div>
+
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr>
+          <th class="L">구 분</th><th>전년 동월</th><th>26.02월</th><th>26.03월</th><th>26.04월</th>
+          <th>26.05월 목표</th><th>26.05월 실적</th><th>달성률</th><th>전년동월 성장률</th><th>직전3개월 성장률</th>
+          <th>누계 월평균</th><th>누계 달성률</th><th>누계 성장률</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="L B">대웅제약</td><td>1,159.5</td><td>1,053.8</td><td>1,172.9</td><td>1,245.0</td>
+          <td>1,454.6</td><td class="B">1,341.2</td><td><span class="pill pa">92.2%</span></td>
+          <td style="color:var(--green)">+15.7%</td><td style="color:var(--green)">+15.9%</td><td>1,188.1</td><td>88.7%</td><td>+4.6%</td>
+        </tr>
+        <tr>
+          <td class="L B">대웅바이오</td><td>565.7</td><td>545.6</td><td>521.4</td><td>577.5</td>
+          <td>591.1</td><td class="B">564.7</td><td><span class="pill pg">95.5%</span></td>
+          <td style="color:var(--red)">-0.2%</td><td style="color:var(--green)">+3.0%</td><td>552.4</td><td>97.9%</td><td>+0.8%</td>
+        </tr>
+        <tr>
+          <td class="L B">한올바이오</td><td>121.5</td><td>131.1</td><td>120.7</td><td>121.9</td>
+          <td>139.6</td><td class="B">123.1</td><td><span class="pill pr">88.2%</span></td>
+          <td style="color:var(--green)">+1.3%</td><td style="color:var(--red)">-1.2%</td><td>125.0</td><td>93.7%</td><td>+8.4%</td>
+        </tr>
+        <tr>
+          <td class="L B">디엔컴퍼니</td><td>46.0</td><td>40.1</td><td>46.8</td><td>52.0</td>
+          <td>59.2</td><td class="B">50.4</td><td><span class="pill pr">85.1%</span></td>
+          <td style="color:var(--green)">+9.6%</td><td style="color:var(--green)">+8.8%</td><td>47.3</td><td>91.4%</td><td>+13.6%</td>
+        </tr>
+        <tr>
+          <td class="L B">디엔코스메틱스</td><td>149.6</td><td>139.7</td><td>173.9</td><td>170.9</td>
+          <td>198.1</td><td class="B">152.7</td><td><span class="pill pr">77.1%</span></td>
+          <td style="color:var(--green)">+2.1%</td><td style="color:var(--red)">-5.4%</td><td>152.4</td><td>85.9%</td><td>+12.3%</td>
+        </tr>
+        <tr class="total">
+          <td class="L">그룹사 계</td><td>2,042.3</td><td>1,910.3</td><td>2,035.8</td><td>2,167.3</td>
+          <td>2,442.6</td><td>2,232.2</td><td><span class="pill pa">91.4%</span></td>
+          <td>+9.3%</td><td>+9.5%</td><td>2,065.2</td><td>—</td><td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ssub">26.05월 법인별 달성률</div>
+  <div style="max-width:520px;">
+    <div class="pr-row"><span class="pr-label">대웅제약</span><div class="pr-wrap"><div class="pr-fill" style="width:92.2%;background:var(--amber)"></div></div><span class="pr-val">92.2%</span></div>
+    <div class="pr-row"><span class="pr-label">대웅바이오</span><div class="pr-wrap"><div class="pr-fill" style="width:95.5%;background:var(--green)"></div></div><span class="pr-val">95.5%</span></div>
+    <div class="pr-row"><span class="pr-label">한올바이오</span><div class="pr-wrap"><div class="pr-fill" style="width:88.2%;background:var(--red)"></div></div><span class="pr-val">88.2%</span></div>
+    <div class="pr-row"><span class="pr-label">디엔컴퍼니</span><div class="pr-wrap"><div class="pr-fill" style="width:85.1%;background:var(--red)"></div></div><span class="pr-val">85.1%</span></div>
+    <div class="pr-row"><span class="pr-label">디엔코스메틱스</span><div class="pr-wrap"><div class="pr-fill" style="width:77.1%;background:var(--red)"></div></div><span class="pr-val">77.1%</span></div>
+  </div>
+  <div class="fnote">영업관리팀 김원기 · 2026.05.29</div>
+</div>
+
+<!-- ===== 2. 직거래 ===== -->
+<div id="t2" class="page">
+  <div class="stitle">대웅그룹사 직거래율현황 (종합도매 比) <span style="font-size:11px;color:var(--text2);font-weight:400;">(단위: 억 원)</span></div>
+
+  <div class="ibox">
+    <strong>26년 4월 그룹사 직거래 202억, 직거래율 32%로 마감</strong><br>
+    전년 대비 +75억/직거래율 +13%p, 전년동월 대비 +75억/직거래율 +13%p↑, 전월 대비 +45억/직거래율 +7%p↑<br>
+    특히, <strong>블록형거점도매 시행 후(3~4월) 평균 직거래 180억</strong>으로, 시행 이전 1~2월 대비 +58억/직거래율 +9%p↑ 상승<br>
+    * 한올바이오 전년(25년)의 경우 헤어그로 프로모션으로 인해 일시적으로 직거래 상승하여 직거래율이 높게 나타남<br><br>
+    <strong>대웅제약</strong> - 직거래 134억, 직거래율 38%<br>
+    전년 대비 +42억/직거래율 +13%p↑, 전년동월 대비 +44억/직거래율 +12%p↑, 전월 대비 +45억/직거래율 +10%p↑<br>
+    블록형 거점도매 시행 이후 3~4월 평균 매출 119억, 시행 이전 1~2월 대비 +37억/직거래율 +8%p↑
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="cl">1. 4월 그룹사 직거래</div>
+      <div class="cv blue">202억 / 32%</div>
+      <div class="cs">① 25년 평균(130억/19%) 대비 +72억(+55.3%) / +12%p</div>
+      <div class="cs">② 전년 동월(127억/19%) 대비 +75억(+59.7%) / +13%p</div>
+      <div class="cs">③ 직전 3개월(134억/21%) 대비 +68억(+51.0%) / +11%p</div>
+      <div class="cs">④ 전월(157억/25%) 대비 +45억(+28.4%) / +7%p</div>
+    </div>
+    <div class="card">
+      <div class="cl">2. 블록형거점도매 시행 후(3~4월)</div>
+      <div class="cv green">180억 / 28%</div>
+      <div class="cs">① 시행 이전(1~2월) 122억/19% 대비 +58억(+47.3%) / +9%p</div>
+      <div class="cs">② 전년 동기간(25년 3~4월) 124억/19% 대비 +56억(+44.9%) / +9%p</div>
+      <div class="cs">③ 25년 평균(130억/19%) 대비 +50억(+38.1%) / +9%p</div>
+      <div class="cs">④ 25년 4분기(136억/20%) 대비 +44억(+32.6%) / +8%p</div>
+    </div>
+  </div>
+
+  <div class="ssub">26년 5월 직거래 현황 (18일차/18일)</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr>
+          <th class="L" colspan="2">구 분</th><th>25년 동월</th>
+          <th>25.10월</th><th>25.11월</th><th>25.12월</th><th>26.1월</th><th>26.2월</th><th>26.3월</th><th>26.4월</th>
+          <th>직전3 평균율</th><th>종합도매</th><th>직거래</th><th>직거래율</th>
+          <th>전년동월 변화율</th><th>전년동월 성장금액</th><th>직전3개월 변화율</th><th>직전3개월 성장금액</th>
+          <th>누계 종합도매</th><th>누계 직거래</th><th>누계 직거래율</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="L B" colspan="2">대웅제약</td><td>25.6%</td><td>27.6%</td><td>28.1%</td><td>26.5%</td><td>26.0%</td><td>26.0%</td><td>31.2%</td><td>37.9%</td>
+          <td>31.7%</td><td>223.3</td><td class="B">125.9</td><td><span class="pill pg">36.1%</span></td>
+          <td style="color:var(--green)">+10.4%</td><td>+40.7</td><td>+4.3%</td><td>+20.4</td><td>235.8</td><td>100.5</td><td>29.9%</td>
+        </tr>
+        <tr class="sub"><td></td><td class="L"> - 병원</td><td>28.1%</td><td>28.2%</td><td>29.3%</td><td>27.2%</td><td>26.5%</td><td>26.5%</td><td>31.9%</td><td>37.5%</td><td>32.0%</td><td>87.5</td><td>46.5</td><td>34.7%</td><td>+6.6%</td><td>+11.2</td><td>+2.7%</td><td>+5.0</td><td>90.4</td><td>39.7</td><td>30.5%</td></tr>
+        <tr class="sub"><td></td><td class="L"> - 로컬</td><td>24.8%</td><td>28.5%</td><td>28.8%</td><td>27.2%</td><td>26.8%</td><td>26.8%</td><td>32.2%</td><td>39.5%</td><td>32.8%</td><td>116.3</td><td>72.3</td><td>38.4%</td><td>+13.5%</td><td>+27.9</td><td>+5.5%</td><td>+14.3</td><td>124.9</td><td>55.1</td><td>30.6%</td></tr>
+        <tr class="sub"><td></td><td class="L"> - 기타</td><td>19.8%</td><td>17.9%</td><td>17.8%</td><td>18.9%</td><td>18.0%</td><td>18.0%</td><td>21.3%</td><td>29.4%</td><td>22.9%</td><td>19.5</td><td>7.1</td><td>26.8%</td><td>+6.9%</td><td>+1.7</td><td>+3.8%</td><td>+1.1</td><td>20.5</td><td>5.7</td><td>21.7%</td></tr>
+        <tr>
+          <td class="L B" colspan="2">대웅바이오</td><td>9.9%</td><td>10.0%</td><td>12.2%</td><td>12.4%</td><td>10.4%</td><td>10.4%</td><td>17.9%</td><td>23.9%</td>
+          <td>17.4%</td><td>170.0</td><td class="B">50.9</td><td><span class="pill pg">23.0%</span></td>
+          <td style="color:var(--green)">+13.2%</td><td>+27.9</td><td>+5.6%</td><td>+12.0</td><td>184.6</td><td>35.7</td><td>16.2%</td>
+        </tr>
+        <tr class="sub"><td></td><td class="L"> - 병원</td><td>8.0%</td><td>8.4%</td><td>12.0%</td><td>10.3%</td><td>11.8%</td><td>11.8%</td><td>17.1%</td><td>21.9%</td><td>16.9%</td><td>50.1</td><td>13.9</td><td>21.7%</td><td>+13.7%</td><td>+8.5</td><td>+4.8%</td><td>+3.9</td><td>50.2</td><td>9.1</td><td>15.3%</td></tr>
+        <tr class="sub"><td></td><td class="L"> - 로컬</td><td>10.9%</td><td>10.8%</td><td>15.6%</td><td>13.5%</td><td>10.1%</td><td>10.1%</td><td>18.7%</td><td>25.2%</td><td>18.0%</td><td>103.0</td><td>32.7</td><td>24.1%</td><td>+13.2%</td><td>+17.3</td><td>+6.1%</td><td>+7.3</td><td>114.6</td><td>23.2</td><td>16.9%</td></tr>
+        <tr class="sub"><td></td><td class="L"> - 기타</td><td>9.2%</td><td>9.4%</td><td>4.9%</td><td>12.1%</td><td>8.9%</td><td>8.9%</td><td>15.3%</td><td>21.6%</td><td>15.3%</td><td>16.9</td><td>4.3</td><td>20.3%</td><td>+11.1%</td><td>+2.2</td><td>+5.0%</td><td>+0.7</td><td>19.8</td><td>3.3</td><td>14.4%</td></tr>
+        <tr>
+          <td class="L B" colspan="2">한올바이오</td><td>26.2%</td><td>27.8%</td><td>28.3%</td><td>24.9%</td><td>23.2%</td><td>23.2%</td><td>17.9%</td><td>24.0%</td>
+          <td>21.7%</td><td>44.2</td><td class="B">13.3</td><td><span class="pill pb">23.2%</span></td>
+          <td style="color:var(--red)">-3.0%</td><td>+0.4</td><td>+1.5%</td><td>-1.3</td><td>43.7</td><td>32.3</td><td>42.5%</td>
+        </tr>
+        <tr class="sub"><td></td><td class="L"> - 병원</td><td>18.3%</td><td>17.1%</td><td>17.1%</td><td>17.0%</td><td>13.9%</td><td>13.9%</td><td>17.4%</td><td>12.8%</td><td>14.7%</td><td>13.9</td><td>2.0</td><td>12.6%</td><td>-5.7%</td><td>-0.3</td><td>-2.1%</td><td>-0.3</td><td>13.6</td><td>10.3</td><td>43.1%</td></tr>
+        <tr class="sub"><td></td><td class="L"> - 로컬</td><td>28.0%</td><td>29.9%</td><td>30.0%</td><td>25.9%</td><td>24.6%</td><td>24.6%</td><td>32.8%</td><td>27.2%</td><td>28.2%</td><td>25.8</td><td>9.4</td><td>26.7%</td><td>-1.3%</td><td>+0.9</td><td>-1.5%</td><td>-0.2</td><td>25.7</td><td>18.8</td><td>42.3%</td></tr>
+        <tr class="sub"><td></td><td class="L"> - 기타</td><td>33.0%</td><td>40.7%</td><td>44.1%</td><td>38.1%</td><td>37.3%</td><td>37.3%</td><td>45.6%</td><td>33.4%</td><td>38.8%</td><td>4.4</td><td>1.9</td><td>30.5%</td><td>-2.4%</td><td>-0.2</td><td>-8.2%</td><td>-0.8</td><td>4.4</td><td>3.2</td><td>42.1%</td></tr>
+        <tr class="total">
+          <td class="L B" colspan="2">그룹사 계</td><td>19.7%</td><td>21.1%</td><td>23.0%</td><td>21.4%</td><td>19.7%</td><td>19.9%</td><td>22.4%</td><td>28.6%</td>
+          <td>23.6%</td><td>437.5</td><td>190.1</td><td><span class="pill pg">30.3%</span></td>
+          <td>+10.6%</td><td>+69.1</td><td>+6.7%</td><td>+31.1</td><td>464.1</td><td>168.5</td><td>26.6%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ibox">
+    <strong>직거래율 추이</strong><br>
+    그룹사: 25년 평균 19% → 25년 4분기 20% → 26년 1월 19% → 2월 19% → 3월 26% → <strong>4월 40%</strong> (25년 평균 比 +21%p / 25년 4분기 比 +20%p)
+  </div>
+</div>
+
+<!-- ===== 3. 직거래 세부 ===== -->
+<div id="t3" class="page">
+  <div class="stitle">직거래 세부 (채널·본부·사업부별 직거래율)</div>
+  <div class="ibox">
+    직거래 세부 시트는 병원/로컬/기타 채널별, 본부·사업부별 직거래율을 2025년 1월~2026년 4월까지 월별로 관리하는 시트입니다.<br>
+    아래는 <strong>26년 4월 기준</strong> 채널별 요약입니다.
+  </div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">채널</th><th>대웅제약</th><th>대웅바이오</th><th>한올바이오</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L B">병원</td><td>37.5%</td><td>21.9%</td><td>12.8%</td></tr>
+        <tr><td class="L B">로컬</td><td>39.5%</td><td>25.2%</td><td>27.2%</td></tr>
+        <tr><td class="L B">기타</td><td>29.4%</td><td>21.6%</td><td>33.4%</td></tr>
+        <tr class="total"><td class="L">그룹사 합계</td><td>37.9%</td><td>23.9%</td><td>24.0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 4. 부실채권 ===== -->
+<div id="t4" class="page">
+  <div class="stitle">대웅 그룹사 부실채권 현황 (26.5월말 기준)</div>
+  <div class="ibox">
+    <strong>목적/취지</strong> : 기 발생된 부실채권을 조기에 회수하고, 사전 예방 관리를 통해 부실채권이 발생하지 않도록 한다.<br>
+    <strong>목표</strong> : 발생한 부실채권은 100% 회수/정리, 신규 부실채권 발생은 ZERO<br>
+    * 부실채권 : 도산보고서, 채권지원의뢰서 의뢰 받은 채권추심진행처
+  </div>
+
+  <div class="ssub">주요 발생유형</div>
+  <div class="ibox">
+    ① 여신거래 직납 채권 다수<br>
+    ② 채무자의 회생/파산사건 접수된 강제 조치 불능의 채권 다수
+  </div>
+
+  <div class="ssub">4. 한 일</div>
+  <div class="txt">1) 채권회수 현황
+
+① 대웅바이오 - 한국바이오제약 (5.5억)
+   - 대웅바이오 위수탁 채권으로 회생 진행 중이며 부광약품의 M&A를 통한 변제안 제출
+   - 실익여부 검토 및 회생계획안 인가 동의 진행
+   - 50% 현금 변제 및 50% 주식출자로 전액 회수 종결 완료
+
+② 대웅제약 - ㈜영우의약품물류 (0.1억)
+   - 대웅제약 담보보유 도매상 채권
+   - 수금 계획 미 이행에 따른 독촉장 발송 및 담보 청구 절차 진행
+   - 담보 실행 전 채무자 구두 변제 협의 및 회수 종결</div>
+
+  <div class="ssub">5. 할 일</div>
+  <div class="txt">1) 그룹사 60일 이상 장기 미회수 채권 정리
+   - 5월 DNC 장기미회수 채권 6억 및 시지바이오 6개처 대손정리 지원 완료
+   - 대웅제약 B2C 파트 및 기타 법인 잔여 미회수 채권 정리 방안 논의 (회계팀 논의)
+   - 회수불가채권 채널 재분류 진행</div>
+
+  <div class="fnote">DW 영업관리팀 박두환 · 2026.06.12</div>
+</div>
+
+<!-- ===== 5. 채권 및 회전일 ===== -->
+<div id="t5" class="page">
+  <div class="stitle">그룹사 매출채권 회전일 <span style="font-size:11px;color:var(--text2);font-weight:400;">(단위: 억/일)</span></div>
+  <div class="ibox">
+    <strong>목적/취지</strong> : 그룹사의 유통별 잔고 및 회전일의 증감현황을 확인하고, 부실채권의 리스크를 예방할 수 있도록 한다.
+  </div>
+
+  <div class="ssub">26.05월 잔고 및 회전일 현황</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">회사</th><th class="L">유 통</th><th>26.04월 회전일</th><th>26.05월 잔고</th><th>26.05월 회전일</th><th>개선현황(일)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L B" rowspan="6">대웅제약</td><td class="L">종합도매</td><td>36.6</td><td>412.4</td><td>34.9</td><td style="color:var(--green)">▼ 0.6</td></tr>
+        <tr><td class="L">간납도매</td><td>29.0</td><td>147.4</td><td>31.8</td><td style="color:var(--red)">▲ 4.0</td></tr>
+        <tr><td class="L">수출(완제)</td><td>65.7</td><td>752.5</td><td>59.8</td><td style="color:var(--green)">▼ 31.5</td></tr>
+        <tr><td class="L">수탁(관계사)</td><td>75.2</td><td>138.5</td><td>86.2</td><td style="color:var(--green)">▼ 12.5</td></tr>
+        <tr><td class="L">수탁(비관계사)</td><td>52.3</td><td>57.7</td><td>54.7</td><td style="color:var(--red)">▲ 3.2</td></tr>
+        <tr><td class="L">기타</td><td>5.1</td><td>92.0</td><td>8.2</td><td style="color:var(--green)">▼ 3.0</td></tr>
+        <tr><td class="L B" rowspan="5">한올바이오</td><td class="L">도매</td><td>29.7</td><td>90.5</td><td>27.6</td><td style="color:var(--green)">▼ 0.04</td></tr>
+        <tr><td class="L">병원</td><td>79.1</td><td>0.4</td><td>73.8</td><td style="color:var(--green)">▼ 5.9</td></tr>
+        <tr><td class="L">약국</td><td>3.1</td><td>1.6</td><td>3.0</td><td style="color:var(--green)">▼ 0.99</td></tr>
+        <tr><td class="L">의원</td><td>85.4</td><td>24.9</td><td>83.8</td><td style="color:var(--green)">▼ 2.2</td></tr>
+        <tr><td class="L">수탁</td><td>60.8</td><td>5.5</td><td>67.7</td><td style="color:var(--green)">▼ 1.6</td></tr>
+        <tr><td class="L B">DNC</td><td class="L">의원</td><td>999</td><td>2</td><td>999</td><td>0</td></tr>
+        <tr><td class="L B" rowspan="6">대웅바이오</td><td class="L">종합도매</td><td>10.5</td><td>79.5</td><td>9.7</td><td style="color:var(--green)">▼ 2.6</td></tr>
+        <tr><td class="L">간납도매</td><td>12.6</td><td>24.6</td><td>13.5</td><td style="color:var(--green)">▼ 3.3</td></tr>
+        <tr><td class="L">병/의원</td><td>70.1</td><td>0.2</td><td>93.2</td><td style="color:var(--green)">▼ 40.2</td></tr>
+        <tr><td class="L">원료</td><td>63.2</td><td>141.7</td><td>59.3</td><td style="color:var(--green)">▼ 6.0</td></tr>
+        <tr><td class="L">수탁</td><td>37.9</td><td>4.1</td><td>48.6</td><td style="color:var(--red)">▲ 145.9</td></tr>
+        <tr><td class="L">수출</td><td>130.2</td><td>159.5</td><td>152.4</td><td style="color:var(--green)">▼ 38.0</td></tr>
+        <tr><td class="L B" rowspan="4">시지바이오</td><td class="L">내수</td><td>71.4</td><td>182.7</td><td>78</td><td style="color:var(--red)">▲ 10.2</td></tr>
+        <tr><td class="L">관계사(B2B)</td><td>45.0</td><td>23.6</td><td>44</td><td style="color:var(--green)">▼ 5.3</td></tr>
+        <tr><td class="L">수출(지사)</td><td>273.9</td><td>48.1</td><td>356</td><td style="color:var(--red)">▲ 72.4</td></tr>
+        <tr><td class="L">수출(비지사)</td><td>156.4</td><td>47.9</td><td>158</td><td style="color:var(--red)">▲ 9.8</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ibox" style="font-size:11px;">
+    * 개선기준 : -5일 이하 ● (양호), -4~0일 ● (보통), 0일 초과 ● (주의)<br>
+    * 수출채권 등은 계약조건에 따른 회전일이 다른 경우 등으로 인해 일률적으로 적용하기 어려움.
+  </div>
+</div>
+
+<!-- ===== 6. 환입현황 ===== -->
+<div id="t6" class="page">
+  <div class="stitle">그룹사 환입현황 <span style="font-size:11px;color:var(--text2);font-weight:400;">(단위: 백만, %)</span></div>
+  <div class="ibox">
+    <strong>목적/취지</strong> : 매월 환입율의 변동상황을 통해 환입액의 증감현황을 확인하고, 그룹사별 환입손실을 개선할 수 있도록 한다.<br>
+    <strong>기준</strong><br>
+    1) 전월대비 환입율이 증가한 경우 증가사유를 파악한다.<br>
+    2) 평균환입금액을 초과하는 품목의 이슈를 확인한다.<br>
+    3) 한 거래처의 과다 환입 이슈를 확인한다.
+  </div>
+
+  <div class="ssub">26.05월 환입 현황</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">법인</th><th>매출액(백만)</th><th>환입액(백만)</th><th>환입율</th><th>전년평균 대비</th><th>직전3개월 대비</th><th>증감사유</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L B">대웅제약</td><td>132,555.1</td><td>723.5</td><td>0.55%</td><td style="color:var(--green)">▼ -4.3%</td><td style="color:var(--green)">▼ -16.7%</td><td class="L">—</td></tr>
+        <tr><td class="L B">한올바이오</td><td>11,013.3</td><td>117.4</td><td>1.07%</td><td style="color:var(--red)">▲ +24.9%</td><td style="color:var(--green)">▼ +12.2%</td><td class="L">—</td></tr>
+        <tr><td class="L B">디엔코스메틱스</td><td>16,067.0</td><td>41.0</td><td>0.26%</td><td style="color:var(--green)">▼ -67.0%</td><td style="color:var(--green)">▼ +6.0%</td><td class="L">—</td></tr>
+        <tr><td class="L B">디엔컴퍼니</td><td>4,991.0</td><td>3.2</td><td>0.06%</td><td style="color:var(--green)">▼ -30.8%</td><td style="color:var(--red)">▲ +84.6%</td><td class="L">뉴욕치과의원 개원 이전 주문 건 및 수신 불가에 따른 환입</td></tr>
+        <tr><td class="L B">대웅바이오</td><td>49,979.6</td><td>348.4</td><td>0.70%</td><td style="color:var(--green)">▼ +0.05%</td><td style="color:var(--green)">▼ -12.1%</td><td class="L">—</td></tr>
+        <tr><td class="L B">시지바이오</td><td>15,991.3</td><td>250.3</td><td>1.57%</td><td style="color:var(--green)">▼ -33.4%</td><td style="color:var(--green)">▼ -54.7%</td><td class="L">*1년 이하 제품에 대해서 반품 미 진행되며, 반품 제품에 대해서는 재 입고 후 사용</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ibox" style="font-size:11px;">* 개선기준 : 0%미만 ● (개선), 0~9% ● (보통), 10%이상 ● (악화)</div>
+</div>
+
+<!-- ===== 7. 회전관리 ===== -->
+<div id="t7" class="page">
+  <div class="stitle">대웅 그룹사 법인별 회전지연처 개선 현황 <span style="font-size:11px;color:var(--text2);font-weight:400;">(단위: 억원)</span></div>
+  <div class="ibox">
+    <strong>목적</strong> : 대웅 그룹사 ETC 직거래 매출에 대하여 기준 내 회전관리를 통해 부실채권 발생을 예방하고, 안정적인 영업환경과 현금 유동성 확보를 통해 회사 이익에 기여<br>
+    <strong>평가기준</strong> : 기준월(25년 1월) 대비 매월 회전지연 처수와 금액이 개선되었는가?
+  </div>
+
+  <div class="ssub">26.05월 회전지연처 현황</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">항목</th><th>26.04월 전체처수</th><th>26.04월 전체금액</th><th>26.04월 회전지연처수</th><th>26.04월 회전지연금액</th><th>26.05월 전체처수</th><th>26.05월 전체금액</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L B">대웅제약(오프라인)</td><td>12.4억</td><td>—</td><td>8</td><td>0.8억</td><td>71</td><td>13.3억</td></tr>
+        <tr><td class="L B">대웅제약(씽크)</td><td>37.0억</td><td>—</td><td>42</td><td>15.9억</td><td>117</td><td>30.3억</td></tr>
+        <tr><td class="L B">대웅제약(해외수출)</td><td>495.5억</td><td>—</td><td>11</td><td>230.3억</td><td>36</td><td>751.5억</td></tr>
+        <tr><td class="L B">대웅제약(CH건기식)</td><td>89억</td><td>—</td><td>1</td><td>0.2억</td><td>109</td><td>72억</td></tr>
+        <tr><td class="L B">한올바이오</td><td>29.2억</td><td>—</td><td>197</td><td>1.2억</td><td>2,387</td><td>27.7억</td></tr>
+        <tr><td class="L B">시지바이오</td><td>210.3억</td><td>—</td><td>17</td><td>1.6억</td><td>214</td><td>206.3억</td></tr>
+        <tr><td class="L B">디엔컴퍼니</td><td>7.6억</td><td>—</td><td>7</td><td>7.6억</td><td>3</td><td>1.7억</td></tr>
+        <tr class="total"><td class="L">합 계</td><td>881.0억</td><td>—</td><td>283</td><td>257.6억</td><td>2,937</td><td>1,102.8억</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 8. 손익현황 ===== -->
+<div id="t8" class="page">
+  <div class="stitle">그룹사 법인별 손익현황 <span style="font-size:11px;color:var(--text2);font-weight:400;">(단위: 억)</span></div>
+
+  <div class="ssub">26년 5월 매출액 요약</div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);">
+    <div class="card"><div class="cl">대웅제약</div><div class="cv blue">1,343.3억</div></div>
+    <div class="card"><div class="cl">한올바이오</div><div class="cv blue">110.1억</div></div>
+    <div class="card"><div class="cl">대웅바이오</div><div class="cv blue">396.8억</div></div>
+    <div class="card"><div class="cl">시지바이오</div><div class="cv blue">159.9억</div></div>
+  </div>
+  <div class="ibox" style="font-size:11px;">※ 디엔컴퍼니(코스메틱), 디엔컴퍼니(에스테틱), 엠디웰은 26년 5월 데이터 없음</div>
+
+  <div class="ssub">26년 5월 상세 (제품·상품 구분)</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">그룹사</th><th class="L">구분</th><th class="L">세부</th><th>26.05월</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L B" rowspan="9">대웅제약</td><td class="L B" rowspan="4">제품</td><td class="L">가군</td><td>—</td></tr>
+        <tr><td class="L">나군</td><td>39.8억</td></tr>
+        <tr><td class="L">다군</td><td>75.6억</td></tr>
+        <tr><td class="L">라군</td><td>195.1억</td></tr>
+        <tr><td class="L">소계</td><td class="B">531.1억</td></tr>
+        <tr><td class="L B" rowspan="4">상품</td><td class="L">가군</td><td>55.9억</td></tr>
+        <tr><td class="L">나군</td><td>10.3억</td></tr>
+        <tr><td class="L">다군</td><td>52.1억</td></tr>
+        <tr><td class="L">라군</td><td>332.9억</td></tr>
+        <tr><td class="L B" colspan="2">기타(수수료 등)</td><td></td><td class="B">50.5억</td></tr>
+        <tr class="total"><td class="L B" colspan="2">대웅제약 매출액 합계</td><td></td><td>1,343.3억</td></tr>
+        <tr><td class="L B" rowspan="8">한올바이오</td><td class="L B" rowspan="4">제품</td><td class="L">가군</td><td>3.2억</td></tr>
+        <tr><td class="L">나군</td><td>2.6억</td></tr>
+        <tr><td class="L">다군</td><td>10.0억</td></tr>
+        <tr><td class="L">소계</td><td class="B">36.5억</td></tr>
+        <tr><td class="L B" rowspan="4">상품</td><td class="L">가군</td><td>7.6억</td></tr>
+        <tr><td class="L">나군</td><td>6.6억</td></tr>
+        <tr><td class="L">다군</td><td>1.9억</td></tr>
+        <tr><td class="L">라군</td><td>34.3억</td></tr>
+        <tr class="total"><td class="L B" colspan="2">한올바이오 매출액 합계</td><td></td><td>110.1억</td></tr>
+        <tr><td class="L B" rowspan="8">대웅바이오</td><td class="L B" rowspan="4">제품</td><td class="L">가군</td><td>—</td></tr>
+        <tr><td class="L">나군</td><td>41.6억</td></tr>
+        <tr><td class="L">다군</td><td>50.5억</td></tr>
+        <tr><td class="L">라군</td><td>26.0억</td></tr>
+        <tr><td class="L">소계</td><td class="B">176.0억</td></tr>
+        <tr><td class="L B" rowspan="4">상품</td><td class="L">가군</td><td>31.9억</td></tr>
+        <tr><td class="L">나군</td><td>31.1억</td></tr>
+        <tr><td class="L">다군</td><td>15.7억</td></tr>
+        <tr><td class="L">라군</td><td>23.9억</td></tr>
+        <tr class="total"><td class="L B" colspan="2">대웅바이오 매출액 합계</td><td></td><td>396.8억</td></tr>
+        <tr><td class="L B" rowspan="8">시지바이오</td><td class="L B" rowspan="4">제품</td><td class="L">가군</td><td>31.8억</td></tr>
+        <tr><td class="L">나군</td><td>15.8억</td></tr>
+        <tr><td class="L">다군</td><td>28.4억</td></tr>
+        <tr><td class="L">소계</td><td class="B">65.6억</td></tr>
+        <tr><td class="L B" rowspan="4">상품</td><td class="L">가군</td><td>1.9억</td></tr>
+        <tr><td class="L">나군</td><td>7.7억</td></tr>
+        <tr><td class="L">다군</td><td>7.6억</td></tr>
+        <tr><td class="L">라군</td><td>2.0억</td></tr>
+        <tr class="total"><td class="L B" colspan="2">시지바이오 매출액 합계</td><td></td><td>159.9억</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 9. 교차판매 ===== -->
+<div id="t9" class="page">
+  <div class="stitle">교차판매 현황 (관계사 이관)</div>
+  <div class="ibox">
+    SAP 인수인계 이력조회 (24.01~) · ZOCS 코드 한정
+  </div>
+
+  <div class="ssub">26.05월 이관 현황 요약</div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr);">
+    <div class="card"><div class="cl">이관거래처 MBO 달성율 (26.4월 실적)</div><div class="cv amber">11%</div><div class="cs">25년 이관 거래처 173처 중</div></div>
+    <div class="card"><div class="cl">이관거래처 성장율 (26.4월 실적)</div><div class="cv green">82.1%</div><div class="cs">매출 증대 23.1% / 유지 59.0%</div></div>
+    <div class="card"><div class="cl">26.06월 비효율처 오픈마켓</div><div class="cv blue">15,444처</div><div class="cs">대웅제약 7,979 / 대웅바이오 734 / 디엔컴퍼니 3,540 / 엠서클 330 / 한올바이오파마 2,861</div></div>
+  </div>
+
+  <div class="ssub">26.05월 조치내용</div>
+  <div class="txt">1. 26.06월 비효율처 오픈마켓 진행
+   - 각 그룹사별 비효율처 리스트 취합 및 각 사 영업부 공유
+     (비효율처 15,444처 공유, 대웅제약 7,979처, 대웅바이오 734처,
+      디엔컴퍼니 3,540처, 엠서클 330처, 한올바이오파마 2,861처)
+
+2. 이관거래처 MBO 달성율 11% (26.4월 실적 기준)
+   - 거래처 이관 후 MBO 달성 관리
+   - 25년 이관 거래처 173처 중 MBO 달성률 약 11%
+   * 관계사 MBO 달성지표 지속 관리중
+
+3. 이관거래처 성장율 82.1% (26.4월 실적 기준)
+   - 거래처 이관 후 성장율 관리
+   - 매출 증대 거래처 23.1%, 매출 유지 거래처 59.0%</div>
+</div>
+
+<!-- ===== 10. 수신율현황 ===== -->
+<div id="t10" class="page">
+  <div class="stitle">SAP 매출 DCM 5월 수신율 현황</div>
+
+  <div class="ssub">1) 전체현황</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">년월</th><th colspan="3">종합도매</th><th colspan="3">간납도매</th></tr>
+        <tr><th class="L"></th><th>SAP 매출처수</th><th>월 수신율</th><th>일 수신율</th><th>SAP 매출처수</th><th>월 수신율</th><th>일 수신율</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L">26.3월</td><td>41처</td><td>28처 (68.3%)</td><td>41처 (100%)</td><td>41처</td><td class="B">94% (450처)</td><td>96% (460처)</td></tr>
+        <tr><td class="L">26.4월</td><td>41처</td><td>18처 (43.9%)</td><td>21처 (51.2%)</td><td>535처</td><td class="B">71% (378처)</td><td>92% (492처)</td></tr>
+        <tr><td class="L B">26.5월</td><td>8처</td><td class="B"><span class="pill pg">100% (8처)</span></td><td class="B"><span class="pill pg">100% (8처)</span></td><td>495처</td><td class="B"><span class="pill pa">83% (411처)</span></td><td class="B">92% (454처)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ssub">2) 간납도매 담당자별 (26.5월)</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">담당자</th><th>SAP 매출처수</th><th>월 수신율</th><th>일 수신율</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L">안중빈</td><td>0처</td><td>—</td><td>—</td></tr>
+        <tr><td class="L">임인숙</td><td>129처</td><td>107처 (83.0%)</td><td>119처 (92.2%)</td></tr>
+        <tr><td class="L">정직한</td><td>190처</td><td>151처 (79.5%)</td><td>177처 (93.2%)</td></tr>
+        <tr><td class="L">배영훈</td><td>176처</td><td>153처 (86.9%)</td><td>158처 (89.8%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ssub">3) 미수신처 상세현황 (26.5월, 엑셀·SS-Chart 수신처 제외)</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">담당자</th><th class="L">거래처명</th><th class="L">주소</th><th>월</th><th>일</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L" rowspan="4">안중빈</td><td class="L">디에스메디케어주식회사</td><td class="L">부산 동래구 명륜로129번길</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">주식회사드림메디</td><td class="L">부산 강서구 대저동서로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">한결약품</td><td class="L">대구 북구 호국로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">(주)케이에스팜</td><td class="L">경남 김해시 번화1로44번길</td><td>X</td><td>O</td></tr>
+        <tr><td class="L" rowspan="6">백승범</td><td class="L">(주)위캔케어</td><td class="L">서울 강서구 강서로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">로드메디칼</td><td class="L">서울 영등포구 선유로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">애플약품 주식회사</td><td class="L">서울 성북구 돌곶이로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">주식회사 코메드팜</td><td class="L">서울 양천구 목동동로10길</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">주식회사수경약품</td><td class="L">서울 중랑구 중랑역로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">화이트팜(주)</td><td class="L">서울 강남구 학동로4길</td><td>O</td><td>X</td></tr>
+        <tr><td class="L">리딩헬스케어</td><td class="L">서울 송파구 강동대로</td><td>O</td><td>X</td></tr>
+        <tr><td class="L" rowspan="5">정직한</td><td class="L">주식회사뉴메디케어</td><td class="L">전북 전주시 덕진구 오공로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">나라약품</td><td class="L">대전 유성구 테크노3로</td><td>X</td><td>O</td></tr>
+        <tr><td class="L">제이팜솔루션</td><td class="L">전북 전주시 덕진구 신복5길</td><td>X</td><td>O</td></tr>
+        <tr><td class="L">키움약품(주)</td><td class="L">광주 북구 중흥로</td><td>O</td><td>X</td></tr>
+        <tr><td class="L" rowspan="5">채수용</td><td class="L">(주)태정약품</td><td class="L">경기 부천시 길주로77번길</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">(주)인산엠티에스</td><td class="L">경기 안양시 동안구 흥안대로409번길</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">(주)팜월드</td><td class="L">경기 의왕시 부곡중앙남4길</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">주식회사 스카이프라임</td><td class="L">경기 부천시 석천로</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">바른약품(주)(인천)</td><td class="L">인천 연수구 테크노파크로111번길</td><td>X</td><td>X</td></tr>
+        <tr><td class="L">주식회사보우약품</td><td class="L">경기 구리시 아차산로405번길</td><td>X</td><td>X</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ssub">4) 히스토리</div>
+  <div class="txt">- 24년 종합도매 44처중 2처 경남지오영, 부산시 약사 신협은 종합도매에서 제외됨
+- 25년부터는 종합도매 42처로 관리됨
+- 25년 5월 매출에 종합으로 분류 되었던 영남지오영이 거래종료됨
+- 26년 3월 블럭형거점도매 시행으로 종합도매 25처 탈락됨
+
+* 보령약품은 SS차트로 월 수신은 되어 있으나 일 수신은 안되고 있음</div>
+</div>
+
+<!-- ===== 11. 그룹사예산 ===== -->
+<div id="t11" class="page">
+  <div class="stitle">그룹사 예산사용 현황</div>
+  <div class="ibox">
+    <strong>목적과 취지</strong> : 현업에서 자율적으로 잘 쓰여지게 하되 평가를 통해 그에 적절한 조치를 하기 위함<br><br>
+    <strong>평가 기준</strong><br>
+    1) 영업예산 매월 발생, 사용, 사용율 평가 : 100% 이내 사용 기준<br>
+    2) 마케팅예산 분기 발생, 사용, 사용율 평가 : 100% 이내 사용 기준<br>
+    3) 모니터링 결과 : 분기 단위 현황(변화율 확인)<br>
+    4) ROI 평가 : 각사기준 평가(심포지움)
+  </div>
+
+  <div class="ssub">3. 26.04월 결과</div>
+  <div class="txt">1) 영업예산 초과 회사 원인 및 대책
+   - 대웅제약 : 전월 시상금 이월하여 집행 (+6억원)
+   - 대웅바이오 : 25년 시상건 처리 (+1.5억원)
+   - CG바이오 : 글로벌 사업부 NASS2026부스 잔금 납부
+
+2) 마케팅 예산 초과 회사 원인 및 대책
+   - 대웅제약 : ESG 기부금 10억 집행
+   - DNC : 딥마스터코스 카데바 비용 정산</div>
+
+  <div class="ssub">4. 25년 대비 26년 예산 배정 변경사항</div>
+  <div class="txt">- 대웅제약 : 관리매출 기준 5.5% 유지 (영업 2.75% + 마케팅 2.75%)
+- 대웅바이오 : SAP 매출대비 6.2% 유지 (영업 2.6% + 마케팅 3.6%) CNS기준, 일비/시외출장비 포함
+- 한올바이오 : 관리매출 기준 11.5% 유지 (영업 9%/실매출 + 마케팅 2.5%/CSO영업 포함) → 26년 3월 매출기준 변경
+- CG바이오 : 회계매출 기준 4.2% 유지 (영업 1% + 마케팅 3.2%)
+- DNC : 회계매출 기준 4.2% 유지 (영업 1% + 마케팅 3.2%, TV광고의 경우 별도항목으로 구분 관리예정)</div>
+
+  <div class="ssub">예산 운영 현황 (○ 정상 / X 초과)</div>
+  <div class="tbox">
+    <table>
+      <thead>
+        <tr><th class="L">사업부</th><th>24년 월평균 영업예산</th><th>24년 월평균 마케팅예산</th><th>25년 영업예산(누계)</th><th>25년 마케팅예산(누계)</th><th>26년 영업예산(1월~)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="L B">대웅제약</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td class="L B">대웅바이오</td><td>○</td><td>X</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td class="L B">한올바이오</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td class="L B">CG바이오</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td class="L B">DNC</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr class="total"><td class="L">합계</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+function go(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>
